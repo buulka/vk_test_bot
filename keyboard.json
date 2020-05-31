@@ -1,0 +1,11 @@
+{
+  "buttons": [
+    [{
+        "action": {
+            "type": "text",
+            "label": "Хочу узнать погоду!"
+        },
+        "color": "secondary"
+    }]
+],
+    "inline": true}
