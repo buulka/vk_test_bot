@@ -44,7 +44,7 @@ while True:
                         result = translator.translate('Привет, я могу рассказать тебе о погоде!', src='ru', dest='en')
                         vkapi.messages.send(user_id=user_id, random_id=get_random_id(), peer_id=user_id,
                                             message=result.text)
-                        vkapi.messages.sendп(user_id=user_id, random_id=get_random_id(), peer_id=user_id,
+                        vkapi.messages.send(user_id=user_id, random_id=get_random_id(), peer_id=user_id,
                                             message="Выберите действие",
                                             keyboard=keyboard)
                     # elif el['object']['body'] == 'Хочу узнать погоду':
