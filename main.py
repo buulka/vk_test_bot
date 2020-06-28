@@ -1,5 +1,5 @@
 import vk_api
-from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
+from vk_api.bot_longpoll import VkBotLongPoll
 from vk_api.utils import get_random_id
 import requests
 from vk.exceptions import VkAPIError
@@ -52,9 +52,6 @@ while True:
     long_poll_response = requests.get('{server}?act=a_check&key={key}&ts={ts}&wait=25'.format(server=server,
                                                                                               key=key, ts=ts)).json()
 
-    print(requests.get('{server}?act=a_check&key={key}&ts={ts}&wait=25'.format(server=server,
-                                                                               key=key, ts=ts)).json())
-
     if 'updates' not in long_poll_response:
         continue
 
@@ -73,18 +70,16 @@ while True:
             elif isWeather is True:
                 city_name = el['object']['body']
 
-                print(city_name)
                 city_name = translator.translate(city_name, src='ru', dest='en').text
-                print(city_name)
+
                 isWeather = False
                 isDate = True
 
             elif isDateSent is True:
                 forecast_date = el['object']['body']
-
-                print(forecast_date)
                 weather = weather.get_weather(city_name=city_name, forecast_date=forecast_date)
                 send_message(weather)
+
                 isWeather = False
                 isDate = False
                 isDateSent = False
@@ -97,6 +92,7 @@ while True:
             isDateSent = True
 
     except VkAPIError:
+        send_message('Упс:( Что-то пошло не так, попробуй заново')
         continue
 
     ts = long_poll_response['ts']
